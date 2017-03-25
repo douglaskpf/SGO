@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controleOrcamento.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                             layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Orçamentos"/>
+                    </f:facet>     
+                    <p:outputLabel for="txtID" value="ID"/>
+                    <p:inputText id="txtID" value="#{controleOrcamento.objeto.id}"
+                                 size="5" maxlength="5"/>  
+
+                    <p:outputLabel for="txtNome" value="Nome"/>
+                    <p:inputText id="txtNome" value="#{controleOrcamento.objeto.nome}"
+                                 size="50" maxlength="50"
+                                 placeholder="Obrigatório"/>  
+
+                    <p:outputLabel value="Data" for="txtData"/>
+                    <p:calendar id="txtData" value="#{controleOrcamento.objeto.data}"
+                                pattern="dd/MM/yyyy" 
+                                mask="true"
+                                navigator="true">
+                        <f:converter converterId="converterCalendar"/>
+                    </p:calendar>
+
+                    <p:outputLabel value="Cliente" for="selectPessoa"/>
+                    <p:selectOneMenu id="selectPessoa"
+                                     value="#{controleOrcamento.objeto.pessoaFisica}">
+                        <f:converter converterId="converterPessoaFisica"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleOrcamento.daoPessoaFisica.listaTodos}"
+                                       var="p" itemLabel="#{p.nome}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Descrição" for="txtDescricao"/>
+                    <p:inputText id="txtDescricao"
+                                 value="#{controleOrcamento.objeto.descricao}"
+                                 size="60" maxlength="60"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Valor Total" for="orcTxtValorTotal"/>
+                    <p:inputText value="#{controleOrcamento.objeto.valorTotal}"
+                                 id="orcTxtValorTotal"
+                                 size="12" maxlength="12"
+                                 placeholder="Obrigatório"/>
+                    
+                      <p:outputLabel value="Usuário" for="selectUsuario"/>                    
+                    <p:selectOneMenu id="selectUsuario"
+                                      value="#{controleOrcamento.objeto.usuario}">
+                                        <f:converter converterId="converterUsuario"/>
+                                        <f:selectItem itemLabel="Selecione um registro"
+                                                      noSelectionOption="true"/>
+                                        <f:selectItems value="#{controleOrcamento.daoUsuario.listaTodos}"
+                                                       var="u" itemLabel="#{u.apelido}"/>
+                                    </p:selectOneMenu>                   
+
+                    <p:outputLabel value="Status" for="selectStatus"/>
+                    <p:selectBooleanCheckbox id="selectStatus" value="#{controleOrcamento.objeto.status}"/>
+                    <p:outputLabel value=""/> 
+
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                     actionListener="#{controleOrcamento.salvar()}"
+                                     update="formEdicao :formListagem"/> 
+
+                </p:panelGrid>
+
+                <h:panelGroup id="painelItensOrcamento">
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                                 layout="grid" styleClass="ui-panelgrid-blank"
+                                 rendered="#{controleOrcamento.editandoOrcamentoItem}">
+                        <f:facet name="header">
+                            <p:outputLabel value="Itens do Orçamento"/>
+                        </f:facet> 
+
+                        <p:outputLabel for="txtIDOrcamento" value="ID"/>
+                        <p:inputText id="txtIDOrcamento" value="#{controleOrcamento.orcamentoItem.id}"
+                                     size="5" maxlength="5"/>   
+
+                        <p:outputLabel for="cbxServico" value="Serviço"/>
+                        <p:selectOneMenu id="cbxServico" value="#{controleOrcamento.orcamentoItem.servico}">
+                            <f:selectItem itemLabel="Selecione um registro" noSelectionOption="true"/>
+                            <f:selectItems value="#{controleOrcamento.daoServico.listaTodos}"
+                                           var="s"
+                                           itemLabel="#{s.nome}"/>
+                            <f:converter converterId="converterServico"/>
+                            <p:ajax listener="#{controleOrcamento.atualizaValorUnitarioItem()}"
+                                    update="txtValorUnitario"/>
+                        </p:selectOneMenu>  
+
+                        <p:outputLabel for="txtQuantidade" value="Quantidade"/>
+                        <p:inputText id="txtQuantidade" value="#{controleOrcamento.orcamentoItem.quantidade}"
+                                     size="5" maxlength="5">
+                            <p:ajax update="txtValorTotal" listener="#{controleOrcamento.calculaValorTotalItem()}"
+                                    event="blur"/>
+                                                                                   
+                        </p:inputText>
+
+                        <p:outputLabel for="txtValorUnitario" value="Valor Unitário"/>
+                        <p:inputText id="txtValorUnitario" value="#{controleOrcamento.orcamentoItem.valorUnitario}"
+                                     size="12" maxlength="12"/>  
+
+                        <p:outputLabel for="txtValorTotal" value="Valor Total"/>
+                        <p:inputText id="txtValorTotal" value="#{controleOrcamento.orcamentoItem.valorTotal}"
+                                     size="12" maxlength="12"/>   
+
+                        <p:outputLabel value=""/>
+                        <p:commandButton value="Salvar Item" icon="ui-icon-disk"
+                                         actionListener="#{controleOrcamento.salvarOrcamentoItem()}"
+                                         update="@form"
+                                         id="btnSalvarOrcamento"/>                         
+                    </p:panelGrid>                
+                </h:panelGroup>
+
+            </div>
+
+
+            <h:panelGroup id="listagemItensOrcamento">
+                <h:panelGroup rendered="#{!controleOrcamento.editandoOrcamentoItem}">
+                    <p:commandButton value="Novo Item Orçamento" icon="ui-icon-plus"
+                                     actionListener="#{controleOrcamento.novoOrcamentoItem()}"
+                                     update="listagemItensOrcamento painelItensOrcamento"
+                                     id="btnNovoItemOrcamento"/>   
+
+                    <p:dataTable value="#{controleOrcamento.objeto.itens}"
+                                 var="ser" reflow="true"  rowIndexVar="idx">
+                        <f:facet name="header">
+                            <p:outputLabel value="Itens do Orçamento"/>
+                        </f:facet>
+
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{ser.servico.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Tipo">
+                            <p:outputLabel value="#{ser.servico.tipo}"/>
+                        </p:column> 
+
+                        <p:column headerText="Quantidade de m²">
+                            <p:outputLabel value="#{ser.quantidade}"/>
+                        </p:column> 
+
+                        <p:column headerText="Valor Unitário">
+                            <p:outputLabel value="#{ser.servico.valorServico}"/>
+                        </p:column>  
+
+                        <p:column headerText="Valor do Serviço">
+                            <p:outputLabel value="#{ser.valorTotal}"/>
+                        </p:column> 
+
+                        <p:column headerText="Ações">
+                            <div align="center">                                
+                                <p:commandButton icon="ui-icon-pencil"
+                                                 actionListener="#{controleOrcamento.alterarOrcamentoItem(idx)}"
+                                                 process="@this"
+                                                 update="@form"/>                                
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{controleOrcamento.excluirOrcamentoItem(idx)}"
+                                                 process="@this" update="@form"/>
+                            </div>
+                        </p:column>                     
+                    </p:dataTable>
+                </h:panelGroup> 
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:form>
+</html>
+

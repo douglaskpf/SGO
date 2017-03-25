@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view encoding="ISO-8859-1" contentType="text/html">
+
+
+        <h:head>
+
+            <title><ui:insert name="titulo">Sistema Gerador de Orçamentos</ui:insert></title>
+            <h:outputStylesheet library="css" name="estilos.css"/>
+
+        </h:head>
+
+        <h:body style="background-color: #add;">
+            <b:container>
+                <h:form id="formMenu">
+                    <b:navBar brand="Sistema gerador de orçamentos">
+                        <b:navbarLinks>
+
+                            <b:navLink value="Inicio" outcome="inicio"/>
+
+
+                           <b:dropMenu value="Cadastros" rendered="#{controleLogin.usuarioLogado != null and(controleLogin.usuarioLogado.administrador == true)}">
+
+                                <b:navCommandLink value="Estados"
+                                                  ajax="false"
+                                                  action="#{controleEstado.listar()}"/>
+
+                                <b:navCommandLink value="Cidades"
+                                                  ajax="false"
+                                                  action="#{controleCidade.listar()}"/>
+
+                                <b:navCommandLink value="Pessoas"
+                                                  ajax="false"
+                                                  action="#{controlePessoaFisica.listar()}"/>
+
+                                <b:navCommandLink value="Usuários"
+                                                  ajax="false"
+                                                  action="#{controleUsuario.listar()}"/>
+
+                                <b:navCommandLink value="Grupos"
+                                                  ajax="false"
+                                                  action="#{controleGrupo.listar()}"/>
+
+                                <b:navCommandLink value="Insumos"
+                                                  ajax="false"
+                                                  action="#{controleInsumo.listar()}"/>
+
+                                <b:navCommandLink value="Serviços"
+                                                  ajax="false"
+                                                  action="#{controleServico.listar()}"/>
+
+                                <b:navCommandLink value="Orçamentos"
+                                                  ajax="false"
+                                                  action="#{controleOrcamento.listar()}"/>
+
+                            </b:dropMenu>
+
+
+
+                            <b:dropMenu value="Cadastros" rendered="#{controleLogin.usuarioLogado != null and(controleLogin.usuarioLogado.administrador == false)}">
+
+                                 <b:navCommandLink value="Cidades"
+                                                  ajax="false"
+                                                  action="#{controleCidade.listar()}"/>
+                                 
+                                  <b:navCommandLink value="Usuários"
+                                                  ajax="false"
+                                                  action="#{controleUsuario.listarUser()}"/>
+
+                                <b:navCommandLink value="Insumos"
+                                                  ajax="false"
+                                                  action="#{controleInsumo.listarUser()}"/>
+
+                                <b:navCommandLink value="Orçamentos"
+                                                  ajax="false"
+                                                  action="#{controleOrcamento.listar()}"/>
+
+                            </b:dropMenu>
+
+
+                            <b:dropMenu value="Usuario:#{controleLogin.usuarioLogado.apelido}" rendered="#{controleLogin.usuarioLogado != null}">
+                                <b:navCommandLink value="Logout" 
+                                                  ajax="false"
+                                                  action="#{controleLogin.efetuarLogout()}"/>
+                            </b:dropMenu>
+
+
+                            <b:dropMenu value="Login" rendered="#{controleLogin.usuarioLogado == null}">
+                                <b:navCommandLink value="Login" 
+                                                  ajax="false"
+                                                  action="#{controleLogin.paginaLogin()}"/>
+                            </b:dropMenu>
+
+
+                        </b:navbarLinks>
+                    </b:navBar>
+                </h:form>
+
+
+                <h:panelGroup>
+                    <ui:insert name="conteudo">
+                        Aqui vai o conteudo
+                    </ui:insert>
+                </h:panelGroup>
+            </b:container>
+        </h:body>
+    </f:view>
+</html>
+

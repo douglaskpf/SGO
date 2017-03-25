@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Gerador de Orçamentos</title>
+        <style type="text/css">
+            .form-signin {
+                margin: 0 auto;
+                max-width: 330px;
+                padding: 15px;
+            }
+        </style>
+    </h:head>
+    <h:body style="padding-top: 60px; background-color: #add;">
+
+
+        <b:container>
+            <h:form styleClass="form-signin" prependId="false">
+                <p:messages/>
+                <h2 class="form-signin-heading">Efetuar Login</h2>
+                <b:inputText id="user" placeholder="usuário" value="#{controleLogin.apelido}" 
+                             required="true"
+                             requiredMessage="O usuário deve ser informado">
+                    <f:facet name="prepend">
+                        <b:icon name="user" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText id="senha" placeholder="senha" type="senha" value="#{controleLogin.senha}"
+                             required="true"
+                             requiredMessage="A senha deve ser informada">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="key" />
+                    </f:facet>
+                </b:inputText>
+                <b:selectBooleanCheckbox value="true" caption="lembre de mim"/>
+                <b:commandButton look="primary btn-block" 
+                                 value="Efetuar Login" 
+                                 icon="log-in" 
+                                 size="lg" 
+                                 action="#{controleLogin.efetuarLogin()}"
+                                 ajax="false"/>
+            </h:form>
+        </b:container>
+    </h:body>
+</html>

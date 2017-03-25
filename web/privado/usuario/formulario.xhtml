@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controleUsuario.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                             layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Usuários"/>
+                    </f:facet>     
+
+
+                    <p:outputLabel for="txtID" value="ID"/>
+                    <p:inputText id="txtID" value="#{controleUsuario.objeto.id}"
+                                 readonly="true" size="5"/>
+
+                    <p:outputLabel for="txtNome" value="Nome" />
+                    <p:inputText id="txtNome" value="#{controleUsuario.objeto.nome}" 
+                                 size="40" maxlength="40" 
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Telefone" for="txtTelefone"/>
+                    <p:inputMask id="txtTelefone" size="15"
+                                 mask="(99)9.9999-9999" 
+                                 value="#{controleUsuario.objeto.telefone}"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Email" for="txtEmail"/>
+                    <p:inputText id="txtEmail" value="#{controleUsuario.objeto.email}"
+                                 size="50" maxlength="40"
+                                 placeholder="Obrigatório"/> 
+
+                    <p:outputLabel value="Endereço" for="txtEndereco"/>
+                    <p:inputText id="txtEndereco"
+                                 value="#{controleUsuario.objeto.endereco}"
+                                 size="50" maxlength="40"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Bairro" for="txtBairro"/>
+                    <p:inputText id="txtBairro" value="#{controleUsuario.objeto.bairro}"
+                                 size="30" maxlength="40"
+                                 placeholder="Obrigatório"/> 
+
+                    <p:outputLabel value="CEP" for="txtCep"/>
+                    <p:inputMask id="txtCep" size="10"
+                                 mask="99999-999" 
+                                 value="#{controleUsuario.objeto.cep}"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Complemento" for="txtComplemento"/>
+                    <p:inputText id="txtComplemento" value="#{controleUsuario.objeto.complemento}"
+                                 size="50" maxlength="40" placeholder="Opcional"/> 
+
+
+                    <p:outputLabel value="CPF" for="txtCPF"/>
+                    <p:inputMask id="txtCPF" size="14"
+                                 mask="999.999.999-99" 
+                                 value="#{controleUsuario.objeto.cpf}"
+                                 placeholder="Obrigatório"/>   
+
+                    <p:outputLabel value="RG" for="txtRG"/>
+                    <p:inputMask id="txtRG" size="10"
+                                 mask="9999999999" 
+                                 value="#{controleUsuario.objeto.rg}"
+                                 placeholder="Obrigatório"/>  
+
+                    <p:outputLabel value="Cidade" for="selectCidade"/>
+                    <p:selectOneMenu value="#{controleUsuario.objeto.cidade}"
+                                     id="selectCidade">
+                        <f:converter converterId="converterCidade"/>
+                        <f:selectItems value="#{controleUsuario.daoCidade.listaTodos}" 
+                                       var="c"
+                                       itemLabel="#{c.nome}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel for="txtUsuario" value="Usuário"/>
+                    <p:inputText id="txtUsuario" value="#{controleUsuario.objeto.apelido}"
+                                 size="30" maxlength="30"
+                                 placeholder="Obrigatório"/>    
+
+                    <p:outputLabel for="txtSenha" value="Senha"/>
+                    <p:password id="txtSenha" value="#{controleUsuario.objeto.senha}"
+                                size="20" maxlength="20" redisplay="true"                           
+                                placeholder="Obrigatório"/>   
+                   
+
+                    <p:outputLabel value="Administrador" for="selectAdmin"/>
+                    <p:selectBooleanCheckbox id="selectAdmin" value="#{controleUsuario.objeto.administrador}"/>
+                    <p:outputLabel value=" "/> 
+
+
+                    <p:outputLabel value=""/>
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                     actionListener="#{controleUsuario.salvar()}"
+                                     update="formEdicao :formListagem"/> 
+                </p:panelGrid>
+            </div>
+        </h:panelGroup>
+    </h:form>
+</html>
+

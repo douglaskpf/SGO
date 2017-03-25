@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controleServico.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                             layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Servicos"/>
+                    </f:facet>     
+                    <p:outputLabel for="txtID" value="ID"/>
+                    <p:inputText id="txtID" value="#{controleServico.objeto.id}"
+                                 size="5" maxlength="5"/>     
+
+                    <p:outputLabel for="txtNome" value="Nome"/>
+                    <p:inputText id="txtNome" value="#{controleServico.objeto.nome}"
+                                 size="50" maxlength="50"
+                                 placeholder="Obrigatório"/>  
+
+                    <p:outputLabel value="Tipo" for="txtTipo"/>
+                    <p:inputText id="txtTipo"
+                                 value="#{controleServico.objeto.tipo}"
+                                 size="60" maxlength="60"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Valor Serviço" for="txtValorServico"/>
+                    <p:inputText id="txtValorServico"
+                                 value="#{controleServico.objeto.valorServico}"
+                                 size="12" maxlength="12"
+                                 placeholder="Obrigatório"/>
+                    
+                     <p:outputLabel value="Usuário" for="selectUsuario"/>
+                    <p:selectOneMenu id="selectUsuario"
+                                     value="#{controleServico.objeto.usuario}">
+                                        <f:converter converterId="converterUsuario"/>
+                                        <f:selectItem itemLabel="Selecione um registro"
+                                                      noSelectionOption="true"/>
+                                        <f:selectItems value="#{controleOrcamento.daoUsuario.listaTodos}"
+                                                       var="u" itemLabel="#{u.apelido}"/>
+                                    </p:selectOneMenu>     
+
+
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                     actionListener="#{controleServico.salvar()}"
+                                     update="formEdicao :formListagem"/> 
+
+                </p:panelGrid>
+
+                <h:panelGroup id="painelItensServico">
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                                 layout="grid" styleClass="ui-panelgrid-blank"
+                                 rendered="#{controleServico.editandoServicoInsumo}">
+                        <f:facet name="header">
+                            <p:outputLabel value="Itens do Serviço"/>
+                        </f:facet> 
+
+                        <p:outputLabel for="txtIDServico" value="ID"/>
+                        <p:inputText id="txtIDServico" value="#{controleServico.servicoInsumo.id}"
+                                     size="5" maxlength="5"/>   
+
+                        <p:outputLabel for="cbxInsumo" value="Insumo"/>
+                        <p:selectOneMenu id="cbxInsumo" value="#{controleServico.servicoInsumo.insumo}">
+                            <f:selectItem itemLabel="Selecione um registro" noSelectionOption="true"/>
+                            <f:selectItems value="#{controleServico.daoInsumo.listaTodos}"
+                                           var="i"
+                                           itemLabel="#{i.nome}"/>
+                            <f:converter converterId="converterInsumo"/>
+                            <p:ajax listener="#{controleServico.atualizaValorUnitarioItem()}"
+                                    update="txtValorUnitario"/>
+                        </p:selectOneMenu>  
+
+                        <p:outputLabel for="txtQuantidade" value="Quantidade"/>
+                        <p:inputText id="txtQuantidade" value="#{controleServico.servicoInsumo.quantidade}"
+                                     size="5" maxlength="5">
+                            <p:ajax update="txtValorTotal" listener="#{controleServico.calculaValorTotalItem()}"
+                                    event="blur"/>
+                                                    
+                        </p:inputText>
+
+                        <p:outputLabel for="txtValorUnitario" value="Valor Unitário"/>
+                        <p:inputText id="txtValorUnitario" value="#{controleServico.servicoInsumo.valorUnitario}"
+                                     size="12" maxlength="12"/>  
+
+                        <p:outputLabel for="txtValorTotal" value="Valor Total"/>
+                        <p:inputText id="txtValorTotal" value="#{controleServico.servicoInsumo.valorTotal}"
+                                     size="12" maxlength="12"/>   
+
+                        <p:outputLabel value=""/>
+                        <p:commandButton value="Salvar Item" icon="ui-icon-disk"
+                                         actionListener="#{controleServico.salvarServicoInsumo()}"
+                                         update="@form"
+                                         id="btnSalvarServico"
+                                         />
+                       
+                                                               
+                    </p:panelGrid>                
+                </h:panelGroup>
+            </div>
+
+            <h:panelGroup id="listagemItensServico">
+                <h:panelGroup rendered="#{!controleServico.editandoServicoInsumo}">
+                    <p:commandButton value="Novo Item Serviço" icon="ui-icon-plus"
+                                     actionListener="#{controleServico.novoServicoInsumo()}"
+                                     update="listagemItensServico painelItensServico"
+                                     id="btnNovoItemServico"/>   
+
+                    <p:dataTable value="#{controleServico.objeto.itens}"
+                                 var="ins" reflow="true"  rowIndexVar="idx">
+                        <f:facet name="header">
+                            <p:outputLabel value="Itens do serviço"/>
+                        </f:facet>
+
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{ins.insumo.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{ins.insumo.descricao}"/>
+                        </p:column> 
+
+                        <p:column headerText="Quantidade">
+                            <p:outputLabel value="#{ins.quantidade}"/>
+                        </p:column>          
+
+                        <p:column headerText="Valor Unitário">
+                            <p:outputLabel value="#{ins.insumo.preco}"/>
+                        </p:column>  
+
+                        <p:column headerText="Valor Total">
+                            <p:outputLabel value="#{ins.valorTotal}"/>
+                        </p:column>  
+
+                        <p:column headerText="Ações">
+                            <div align="center">                                
+                                <p:commandButton icon="ui-icon-pencil"
+                                                 actionListener="#{controleServico.alterarServicoInsumo(idx)}"
+                                                 process="@this"
+                                                 update="@form"/>                                
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{controleServico.excluirServicoInsumo(idx)}"
+                                                 process="@this" update="@form"/>
+                            </div>
+                        </p:column>                     
+                    </p:dataTable>
+                </h:panelGroup> 
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:form>
+</html>
+

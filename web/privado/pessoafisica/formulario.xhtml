@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controlePessoaFisica.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                             layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Pessoas"/>
+                    </f:facet> 
+
+                    <p:outputLabel for="txtID" value="ID"/>
+                    <p:inputText id="txtID" value="#{controlePessoaFisica.objeto.id}"
+                                 readonly="true" size="5"/>
+
+                    <p:outputLabel for="txtNome" value="Nome" />
+                    <p:inputText id="txtNome" value="#{controlePessoaFisica.objeto.nome}" 
+                                 size="40" maxlength="40" 
+                                 placeholder="Obrigatório"/>
+                    
+                    
+                    <p:outputLabel value="Telefone" for="txtTelefone"/>
+                    <p:inputMask id="txtTelefone"
+                                 mask="(99)9.9999-9999" 
+                                 value="#{controlePessoaFisica.objeto.telefone}"
+                                 size="15" maxlength="15"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Email" for="txtEmail"/>
+                    <p:inputText id="txtEmail" value="#{controlePessoaFisica.objeto.email}"
+                                 size="50" maxlength="40"
+                                  placeholder="Obrigatório"/> 
+
+                    <p:outputLabel value="Endereço" for="txtEndereco"/>
+                    <p:inputText id="txtEndereco"
+                                 value="#{controlePessoaFisica.objeto.endereco}"
+                                 size="50" maxlength="40"
+                                 placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Bairro" for="txtBairro"/>
+                    <p:inputText id="txtBairro" value="#{controlePessoaFisica.objeto.bairro}"
+                                 size="30" maxlength="40"
+                                 placeholder="Obrigatório"/> 
+
+                    <p:outputLabel value="CEP" for="txtCep"/>
+                    <p:inputMask id="txtCep" size="10"
+                                 mask="99999-999" 
+                                 value="#{controlePessoaFisica.objeto.cep}"
+                                  placeholder="Obrigatório"/>
+
+                    <p:outputLabel value="Complemento" for="txtComplemento"/>
+                    <p:inputText id="txtComplemento" value="#{controlePessoaFisica.objeto.complemento}"
+                                 size="50" maxlength="40"
+                                  placeholder="Opcional"/> 
+
+                    <p:outputLabel value="CPF" for="txtCPF"/>
+                    <p:inputMask id="txtCPF" size="14"
+                                 mask="999.999.999-99" 
+                                 value="#{controlePessoaFisica.objeto.cpf}"
+                                  placeholder="Obrigatório"/>   
+
+                    <p:outputLabel value="RG" for="txtRG"/>
+                    <p:inputMask id="txtRG" size="10"
+                                 mask="9999999999" 
+                                 value="#{controlePessoaFisica.objeto.rg}"
+                                  placeholder="Obrigatório"/>  
+
+                    <p:outputLabel value="Cidade" for="selectCidade"/>
+                    <p:selectOneMenu value="#{controlePessoaFisica.objeto.cidade}"
+                                     id="selectCidade">
+                        <f:converter converterId="converterCidade"/>
+                        <f:selectItems value="#{controlePessoaFisica.daoCidade.listaTodos}" 
+                                       var="c"
+                                       itemLabel="#{c.nome}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value=""/>
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                     actionListener="#{controlePessoaFisica.salvar()}"
+                                     update="formEdicao :formListagem"/> 
+                </p:panelGrid>
+            </div>   
+        </h:panelGroup>
+    </h:form>            
+</html>
+

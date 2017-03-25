@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Manutenção de Usuários</ui:define>
+        <ui:define name="conteudo">
+           <h:panelGroup rendered="#{controleLogin.usuarioLogado != null and(controleLogin.usuarioLogado.administrador == true)}">
+            <h:form id="formListagem">
+                <h:panelGroup rendered="#{!controleUsuario.editando}">
+                    <p:messages/>
+                    <p:commandButton value="Novo" icon="ui-icon-plus"
+                                     actionListener="#{controleUsuario.novo()}"
+                                     update=":formEdicao :formListagem"/>                    
+                    
+                    <p:dataTable value="#{controleUsuario.dao.listaObjetos}" var="obj"
+                                 reflow="true" id="listagem" >
+                        <f:facet name="header">                            
+                            <div class="ui-fluid" >
+                                <p:panelGrid columns="7" styleClass="ui-panelgrid-blank" layout="grid"
+                                            columnClasses="col-md-1,col-md-2,col-md-1,col-md-3,col-md-1,col-md-2,col-md-2">
+                                    <p:outputLabel value="Ordem:" />
+                                    <p:selectOneMenu value="#{controleUsuario.dao.ordem}">  
+                                        <f:selectItem itemLabel="ID" itemValue="id"/>   
+                                        <f:selectItem itemLabel="Usuario" itemValue="apelido"/> 
+                                        <p:ajax update="listagem"/>
+                                    </p:selectOneMenu>
+                                    
+                                      <p:outputLabel value="Filtro"/>
+                                    <p:inputText value="#{controleUsuario.dao.filtro}"/>                                                            
+                                    <p:commandButton value="" update="listagem" icon="ui-icon-search"/>
+                                    
+                                    <p:outputLabel value="Máximo de objetos"/>
+                                    <p:inputText value="#{controleUsuario.dao.maximoObjetos}" size="5">
+                                        <p:ajax event="keyup" update="listagem"/>
+                                    </p:inputText>
+                                </p:panelGrid>
+                            </div>                                            
+                        </f:facet>
+                        <f:facet name="footer"> 
+                            <p:outputLabel value="#{controleUsuario.dao.mensagemNavegacao} &nbsp; &nbsp;"/>
+                            <p:commandButton action="#{controleUsuario.dao.primeiro()}"
+                                             icon="ui-icon-seek-first" title="Primeiro" update="listagem"/>
+                            <p:commandButton action="#{controleUsuario.dao.anterior()}"
+                                             icon="ui-icon-seek-prev" title="Anterior" update="listagem"/>
+                            <p:commandButton action="#{controleUsuario.dao.proximo()}"
+                                             icon="ui-icon-seek-next" title="Próximo" update="listagem"/>
+                            <p:commandButton action="#{controleUsuario.dao.ultimo()}"
+                                             icon="ui-icon-seek-end" title="Ultimo" update="listagem"/>                                                        
+                        </f:facet>
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{obj.id}"/>
+                        </p:column>
+                        
+                         <p:column headerText="Pessoa">              
+                            <p:outputLabel value="#{obj.nome}"/>
+                        </p:column>
+                                                
+                        <p:column headerText="Usuário">
+                            <p:outputLabel value="#{obj.apelido}"/>
+                        </p:column>   
+                        
+                        <p:column headerText="Administrador">
+                            <p:outputLabel value="#{obj.administrador == true ? 'SIM' : 'NÃO'}"/>
+                       </p:column> 
+                                                                         
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton icon="ui-icon-pencil"
+                                                 actionListener="#{controleUsuario.alterar(obj.id)}"
+                                                 process="@form"
+                                                 update=":formEdicao formListagem"/>
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{controleUsuario.excluir(obj.id)}"
+                                                 process="@form" update=":formListagem"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:form>
+            <ui:include src="/privado/usuario/formulario.xhtml"/>
+           </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</html>
+
