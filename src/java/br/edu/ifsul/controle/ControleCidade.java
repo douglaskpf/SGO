@@ -43,7 +43,7 @@ public class ControleCidade implements Serializable {
             editando = true;
 
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao recuperar objeto: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao recuperar objeto: " + Util.getMensagemErro(e));
         }
 
     }
@@ -55,7 +55,7 @@ public class ControleCidade implements Serializable {
             Util.mensagemInformacao("Objeto removido com sucesso!");
 
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao remover objeto: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao remover objeto: " + Util.getMensagemErro(e));
         }
     }
 
@@ -69,7 +69,7 @@ public class ControleCidade implements Serializable {
             Util.mensagemInformacao("Sucesso ao persistir objeto");
             editando = false;
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao persistir: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao persistir: " + Util.getMensagemErro(e));
         }
     }
 

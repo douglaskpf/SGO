@@ -13,7 +13,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-
 @Named(value = "controleServico")
 @SessionScoped
 public class ControleServico implements Serializable {
@@ -22,13 +21,10 @@ public class ControleServico implements Serializable {
     private ServicoDAO<Servico> dao;
     private Servico objeto;
     private Boolean editando;
-    private Boolean novoItem; //controle de adição de itens
-    
-     
+    private Boolean novoItem; 
     @EJB
     private UsuarioDAO<Usuario> daoUsuario;
-    
-    
+
     @EJB
     private InsumoDAO<Insumo> daoInsumo;
     private Boolean editandoServicoInsumo;
@@ -56,7 +52,7 @@ public class ControleServico implements Serializable {
             editando = true;
             editandoServicoInsumo = false;
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao recuperar objeto: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao recuperar objeto: " + Util.getMensagemErro(e));
         }
 
     }
@@ -67,7 +63,7 @@ public class ControleServico implements Serializable {
             dao.remove(objeto);
             Util.mensagemInformacao("Objeto removido com sucesso!");
         } catch (Exception e) {
-            Util.mensagemErro("Erro a remover objeto: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro a remover objeto: " + Util.getMensagemErro(e));
         }
     }
 
@@ -82,7 +78,7 @@ public class ControleServico implements Serializable {
             editando = false;
             editandoServicoInsumo = false;
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao persistir: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao persistir: " + Util.getMensagemErro(e));
         }
     }
 
@@ -95,21 +91,19 @@ public class ControleServico implements Serializable {
     public void salvarServicoInsumo() {
         if (item.getId() == null && novoItem == true) {
             objeto.adicionarItem(item);
-        }        
-        
-        objeto.setValorServico(0.00);
-        Double total = 0.0;  
-        for (ServicoInsumo si : objeto.getItens()) {
-            total += si.getValorTotal();
+        } 
+            objeto.setValorServico(0.00);
+            Double total = 0.0;
+            for (ServicoInsumo si : objeto.getItens()) {
+                total += si.getValorTotal();
+            }
+
+            objeto.setValorServico(total);
+
+            editandoServicoInsumo = false;
+            Util.mensagemInformacao("Item persistido com sucesso!");
         }
-       
-        objeto.setValorServico(total);
-          
-        editandoServicoInsumo = false;
-        Util.mensagemInformacao("Item persistido com sucesso!");
-        
-            
-    }
+    
 
     public void alterarServicoInsumo(int index) {
         item = objeto.getItens().get(index);
@@ -121,8 +115,8 @@ public class ControleServico implements Serializable {
         objeto.removerItem(index);
         Util.mensagemInformacao("Item removido com sucesso!");
     }
-        
-     public void atualizaValorUnitarioItem() {
+
+    public void atualizaValorUnitarioItem() {
         if (item != null) {
             if (item.getInsumo() != null) {
                 item.setValorUnitario(item.getInsumo().getPreco());
@@ -134,19 +128,8 @@ public class ControleServico implements Serializable {
         if (item.getValorUnitario() != null && item.getQuantidade() != null) {
             item.setValorTotal(item.getValorUnitario() * item.getQuantidade());
         }
-        
-    } 
-    
-        
-    /*    private void atualizaValorTotal() {
-        objeto.setValorServico(0.00);
-        Double total = 0.0;
-        for (ServicoInsumo si : objeto.getItens()) {
-            total += si.getValorTotal();
-        }
-        objeto.setValorServico(total);
-    }*/
-         
+
+    }
 
     public Servico getObjeto() {
         return objeto;
@@ -172,7 +155,6 @@ public class ControleServico implements Serializable {
         this.dao = dao;
     }
 
-   
     public Boolean getEditandoServicoInsumo() {
         return editandoServicoInsumo;
     }

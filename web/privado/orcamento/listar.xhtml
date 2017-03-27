@@ -11,10 +11,7 @@
             <h:form id="formListagem">
                 <h:panelGroup rendered="#{!controleOrcamento.editando}">
                     <p:messages/>
-                     <p:commandButton value="Orçamentos Teste"
-                                      action="#{controleOrcamento.imprimeOrcamentoTeste()}"                
-                                 onclick="this.form.target='_blank'" ajax="false"/>
-                     
+                                        
                     <p:commandButton value="Novo" icon="ui-icon-plus"
                                      actionListener="#{controleOrcamento.novo()}"
                                      update=":formEdicao :formListagem"/>                    
@@ -87,9 +84,9 @@
                                                  actionListener="#{controleOrcamento.excluir(obj.id)}"
                                                  process="@form" update=":formListagem"/>
                                   
-                                <p:commandButton icon="ui-icon-print"
+                             <p:commandButton icon="ui-icon-print"
                                                  action="#{controleOrcamento.imprimeOrcamento(obj.id)}"                
-                                 onclick="this.form.target='_blank'" ajax="false"/>   
+                                 onclick="this.form.target='_blank'" ajax="false"/>
                             </div>
                         </p:column>
                     </p:dataTable>

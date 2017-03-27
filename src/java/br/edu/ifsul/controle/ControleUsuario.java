@@ -53,7 +53,7 @@ public class ControleUsuario implements Serializable {
             objeto = dao.getObjectById(id);
             editando = true;
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao recuperar objeto: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao recuperar objeto: " + Util.getMensagemErro(e));
         }
 
     }
@@ -64,7 +64,7 @@ public class ControleUsuario implements Serializable {
             dao.remove(objeto);
             Util.mensagemInformacao("Objeto removido com sucesso!");
         } catch (Exception e) {
-            Util.mensagemErro("Erro a remover objeto: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro a remover objeto: " + Util.getMensagemErro(e));
         }
     }
 
@@ -78,7 +78,7 @@ public class ControleUsuario implements Serializable {
             Util.mensagemInformacao("Sucesso ao persistir objeto");
             editando = false;
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao persistir: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao persistir: " + Util.getMensagemErro(e));
         }
     }
 

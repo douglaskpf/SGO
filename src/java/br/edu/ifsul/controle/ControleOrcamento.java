@@ -20,7 +20,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-
 @Named(value = "controleOrcamento")
 @SessionScoped
 public class ControleOrcamento implements Serializable {
@@ -29,41 +28,33 @@ public class ControleOrcamento implements Serializable {
     private OrcamentoDAO<Orcamento> dao;
     private Orcamento objeto;
     private Boolean editando;
-    private Boolean novoItem; //controle de adição de itens
-    
+    private Boolean novoItem;
+
     @EJB
     private UsuarioDAO<Usuario> daoUsuario;
-    
+
     @EJB
     private PessoaFisicaDAO<PessoaFisica> daoPessoaFisica;
-    
+
     @EJB
     private ServicoDAO<Servico> daoServico;
     private Boolean editandoOrcamentoItem;
     private OrcamentoItem item;
-       
-       
+
     public ControleOrcamento() {
         editando = false;
         editandoOrcamentoItem = false;
+
     }
-    
-    public void imprimeOrcamentoTeste(){
-        HashMap parametros = new HashMap();
-        UtilRelatorios.imprimeRelatorio("relatorioOrcamento2", 
-                parametros, dao.getListaTodos());
-    }
-    
-    public void imprimeOrcamento(Integer id){
+
+    public void imprimeOrcamento(Integer id) {
         objeto = dao.localizar(id);
         List<Orcamento> listaOrcamento = new ArrayList<>();
         listaOrcamento.add(objeto);
         HashMap parametros = new HashMap();
-      //  parametros.put("listaServicos", objeto.getItens());
         UtilRelatorios.imprimeRelatorio("relatorioOrcamento", parametros,
                 listaOrcamento);
     }
-
 
     public String listar() {
         editando = false;
@@ -75,7 +66,7 @@ public class ControleOrcamento implements Serializable {
         editandoOrcamentoItem = false;
         objeto = new Orcamento();
         objeto.setData(Calendar.getInstance());
-        
+
     }
 
     public void alterar(Integer id) {
@@ -84,7 +75,7 @@ public class ControleOrcamento implements Serializable {
             editando = true;
             editandoOrcamentoItem = false;
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao recuperar objeto: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao recuperar objeto: " + Util.getMensagemErro(e));
         }
 
     }
@@ -95,7 +86,7 @@ public class ControleOrcamento implements Serializable {
             dao.remove(objeto);
             Util.mensagemInformacao("Objeto removido com sucesso!");
         } catch (Exception e) {
-            Util.mensagemErro("Erro a remover objeto: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro a remover objeto: " + Util.getMensagemErro(e));
         }
     }
 
@@ -103,14 +94,14 @@ public class ControleOrcamento implements Serializable {
         try {
             if (objeto.getId() == null) {
                 dao.persist(objeto);
-            } else {
+            }else {
                 dao.merge(objeto);
-            }
+                         }
             Util.mensagemInformacao("Sucesso ao persistir objeto");
             editando = false;
             editandoOrcamentoItem = false;
         } catch (Exception e) {
-            Util.mensagemErro("Erro ao persistir: " + Util.geMensagemErro(e));
+            Util.mensagemErro("Erro ao persistir: " + Util.getMensagemErro(e));
         }
     }
 
@@ -121,21 +112,19 @@ public class ControleOrcamento implements Serializable {
     }
 
     public void salvarOrcamentoItem() {
-       
+
         //criar atributo booleano para novo item == true e edição == false
-                      
         if (item.getId() == null && novoItem == true) {
-                objeto.adicionarItem(item);
+            objeto.adicionarItem(item);
         }
-             
-        objeto.setValorTotal(0.00);
-        Double total = 0.0;    
-        for (OrcamentoItem oi : objeto.getItens()) {
-            total += oi.getValorTotal();
-        }
-       objeto.setValorTotal(total);
-       editandoOrcamentoItem = false;
-       Util.mensagemInformacao("Item persistido com sucesso!");
+            objeto.setValorTotal(0.00);
+            Double total = 0.0;
+            for (OrcamentoItem oi : objeto.getItens()) {
+                total += oi.getValorTotal();
+            }
+            objeto.setValorTotal(total);
+            editandoOrcamentoItem = false;
+            Util.mensagemInformacao("Item persistido com sucesso!");
     }
 
     public void alterarOrcamentoItem(int index) {
@@ -148,10 +137,8 @@ public class ControleOrcamento implements Serializable {
         objeto.removerItem(index);
         Util.mensagemInformacao("Item removido com sucesso!");
     }
-    
-    
-    
-     public void atualizaValorUnitarioItem() {
+
+    public void atualizaValorUnitarioItem() {
         if (item != null) {
             if (item.getServico() != null) {
                 item.setValorUnitario(item.getServico().getValorServico());
@@ -159,26 +146,12 @@ public class ControleOrcamento implements Serializable {
         }
     }
 
-   
-
     public void calculaValorTotalItem() {
         if (item.getValorUnitario() != null && item.getQuantidade() != null) {
             item.setValorTotal(item.getValorUnitario() * item.getQuantidade());
         }
-             
-    } 
-      
-        
-     /*private void atualizaValorTotal() {
-        objeto.setValorTotal(0.00);
-        Double total = 0.0;
-        for (OrcamentoItem oi : objeto.getItens()) {
-            total += oi.getValorTotal();
-        }
-        objeto.setValorTotal(total);
-    }*/
-         
-         
+
+    }
 
     public Orcamento getObjeto() {
         return objeto;
@@ -204,7 +177,6 @@ public class ControleOrcamento implements Serializable {
         this.dao = dao;
     }
 
-   
     public Boolean getEditandoOrcamentoItem() {
         return editandoOrcamentoItem;
     }
@@ -253,5 +225,4 @@ public class ControleOrcamento implements Serializable {
         this.daoPessoaFisica = daoPessoaFisica;
     }
 
-   
 }

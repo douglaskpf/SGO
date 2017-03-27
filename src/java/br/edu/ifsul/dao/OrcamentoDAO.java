@@ -22,11 +22,12 @@ public class OrcamentoDAO<T> extends DAOGenerico<Orcamento> implements Serializa
         Orcamento obj = (Orcamento) super.getEm().find(super.getClassePersistente(), id);
         obj.getItens().size();
         
-      for (OrcamentoItem i : obj.getItens()){
+     for (OrcamentoItem i : obj.getItens()){
             i.getServico().getItens().size();
         }     
-               
+          
         return obj;
+ 
     }       
     
 }
