@@ -46,15 +46,30 @@ public class ControleOrcamento implements Serializable {
         editandoOrcamentoItem = false;
 
     }
+    
+    
+    
+     public void imprimeOrcamento(Integer id){
+        try {
+        objeto = dao.recuperar(id);
+        List<Orcamento> listaOrcamento = new ArrayList<>();
+        listaOrcamento.add(objeto);
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("relatorioOrcamento", parametros,
+                listaOrcamento);
+                } catch (Exception e) {
+            Util.mensagemErro("Erro ao imprimir: " + Util.getMensagemErro(e));
+        }
+    }
 
-    public void imprimeOrcamento(Integer id) {
+  /*  public void imprimeOrcamento(Integer id) {
         objeto = dao.localizar(id);
         List<Orcamento> listaOrcamento = new ArrayList<>();
         listaOrcamento.add(objeto);
         HashMap parametros = new HashMap();
         UtilRelatorios.imprimeRelatorio("relatorioOrcamento", parametros,
                 listaOrcamento);
-    }
+    }*/
 
     public String listar() {
         editando = false;

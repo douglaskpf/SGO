@@ -14,4 +14,9 @@ public class InsumoDAO<T> extends DAOGenerico<Insumo>implements Serializable {
         super.setOrdem("nome");// ordem padrão
     }
 
+    
+    
+    //fazer a função aqui
+    
+    
 }

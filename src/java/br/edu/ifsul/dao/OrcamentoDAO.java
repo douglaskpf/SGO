@@ -17,8 +17,19 @@ public class OrcamentoDAO<T> extends DAOGenerico<Orcamento> implements Serializa
         super.setOrdem("nome");        
     }
  
+  public Orcamento recuperar(Integer id) throws Exception {
+        Orcamento obj = (Orcamento) super.getEm().find(super.getClassePersistente(), id);
+        obj.getItens().size();
+
+        for (OrcamentoItem i : obj.getItens()) {
+            i.getServico().getItens().size();
+        }
+        return obj;
+    }  
+   
+
    @Override
-    public Orcamento getObjectById(Integer id) throws Exception {
+   public Orcamento getObjectById(Integer id) throws Exception {
         Orcamento obj = (Orcamento) super.getEm().find(super.getClassePersistente(), id);
         obj.getItens().size();
         

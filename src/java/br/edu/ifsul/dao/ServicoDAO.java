@@ -14,7 +14,7 @@ public class ServicoDAO<T> extends DAOGenerico<Servico> implements Serializable 
         super.setClassePersistente(Servico.class);
         super.setOrdem("nome");        
     }
- 
+     
     @Override
     public Servico getObjectById(Integer id) throws Exception {
         Servico obj = (Servico) super.getEm().find(super.getClassePersistente(), id);
@@ -25,5 +25,5 @@ public class ServicoDAO<T> extends DAOGenerico<Servico> implements Serializable 
         }   
        return obj;
     }       
-    
+   
 }

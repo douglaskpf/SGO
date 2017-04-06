@@ -41,8 +41,10 @@ public class DAOGenerico<T> implements Serializable {
 
     public T getObjectById(Integer id) throws Exception {
         return (T) em.find(classePersistente, id);
-    }
-
+        
+     }
+    
+   
     public List<T> getListaObjetos() {
         String jpql = "from " + classePersistente.getSimpleName();
         String where = "";
@@ -66,6 +68,10 @@ public class DAOGenerico<T> implements Serializable {
         return em.createQuery(jpql).setFirstResult(posicaoAtual).
                 setMaxResults(maximoObjetos).getResultList();
     }
+     
+    
+   
+        
     
     public void primeiro(){
         posicaoAtual = 0;
