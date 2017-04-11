@@ -10,51 +10,53 @@
 
         <h:head>
 
-            <title><ui:insert name="titulo">Sistema Gerador de Orçamentos</ui:insert></title>
+            <title><ui:insert name="titulo">Gerador de Orçamentos</ui:insert></title>
             <h:outputStylesheet library="css" name="estilos.css"/>
 
         </h:head>
 
-        <h:body style="background-color: #add;">
+        <h:body style="background-color: #add">
+           
             <b:container>
-                <h:form id="formMenu">
-                    <b:navBar brand="Sistema gerador de orçamentos">
+                 <h:form id="formMenu" >
+                    <b:navBar brand= "GERADOR DE ORÇAMENTOS">
+ 
                         <b:navbarLinks>
 
-                            <b:navLink value="Inicio" outcome="inicio"/>
+                            <b:navLink icon="home" value="Início" outcome="inicio"/>
 
 
-                           <b:dropMenu value="Cadastros" rendered="#{controleLogin.usuarioLogado != null and(controleLogin.usuarioLogado.administrador == true)}">
+                           <b:dropMenu icon="list-alt" value="Cadastros" rendered="#{controleLogin.usuarioLogado != null and(controleLogin.usuarioLogado.administrador == true)}">
 
-                                <b:navCommandLink value="Estados"
+                                <b:navCommandLink icon="globe" value="Estados"
                                                   ajax="false"
                                                   action="#{controleEstado.listar()}"/>
 
-                                <b:navCommandLink value="Cidades"
+                                <b:navCommandLink icon="globe" value="Cidades"
                                                   ajax="false"
                                                   action="#{controleCidade.listar()}"/>
 
-                                <b:navCommandLink value="Pessoas"
+                                <b:navCommandLink icon="user" value="Pessoas"
                                                   ajax="false"
                                                   action="#{controlePessoaFisica.listar()}"/>
 
-                                <b:navCommandLink value="Usuários"
+                                <b:navCommandLink icon="user" value="Usuários"
                                                   ajax="false"
                                                   action="#{controleUsuario.listar()}"/>
 
-                                <b:navCommandLink value="Grupos"
+                                <b:navCommandLink icon="list" value="Grupos"
                                                   ajax="false"
                                                   action="#{controleGrupo.listar()}"/>
 
-                                <b:navCommandLink value="Insumos"
+                                <b:navCommandLink icon="usd" value="Insumos"
                                                   ajax="false"
                                                   action="#{controleInsumo.listar()}"/>
 
-                                <b:navCommandLink value="Serviços"
+                                <b:navCommandLink icon="wrench" value="Serviços"
                                                   ajax="false"
                                                   action="#{controleServico.listar()}"/>
 
-                                <b:navCommandLink value="Orçamentos"
+                                <b:navCommandLink icon="tasks" value="Orçamentos"
                                                   ajax="false"
                                                   action="#{controleOrcamento.listar()}"/>
 
@@ -62,9 +64,9 @@
 
 
 
-                            <b:dropMenu value="Cadastros" rendered="#{controleLogin.usuarioLogado != null and(controleLogin.usuarioLogado.administrador == false)}">
+                            <b:dropMenu icon="list" value="Cadastros" rendered="#{controleLogin.usuarioLogado != null and(controleLogin.usuarioLogado.administrador == false)}">
 
-                                 <b:navCommandLink value="Cidades"
+                                 <b:navCommandLink icon="" value="Cidades"
                                                   ajax="false"
                                                   action="#{controleCidade.listar()}"/>
                                  
@@ -83,15 +85,15 @@
                             </b:dropMenu>
 
 
-                            <b:dropMenu value="Usuario:#{controleLogin.usuarioLogado.apelido}" rendered="#{controleLogin.usuarioLogado != null}">
-                                <b:navCommandLink value="Logout" 
+                            <b:dropMenu icon="user" value="Usuário:#{controleLogin.usuarioLogado.apelido}" rendered="#{controleLogin.usuarioLogado != null}">
+                                <b:navCommandLink icon="log-out" value="Logout" 
                                                   ajax="false"
                                                   action="#{controleLogin.efetuarLogout()}"/>
                             </b:dropMenu>
 
 
-                            <b:dropMenu value="Login" rendered="#{controleLogin.usuarioLogado == null}">
-                                <b:navCommandLink value="Login" 
+                            <b:dropMenu icon="log-in" value="Entrar" rendered="#{controleLogin.usuarioLogado == null}">
+                                <b:navCommandLink icon="log-in" value="Login" 
                                                   ajax="false"
                                                   action="#{controleLogin.paginaLogin()}"/>
                             </b:dropMenu>
@@ -101,10 +103,9 @@
                     </b:navBar>
                 </h:form>
 
-
                 <h:panelGroup>
                     <ui:insert name="conteudo">
-                        Aqui vai o conteudo
+                            CONTEUDO
                     </ui:insert>
                 </h:panelGroup>
             </b:container>

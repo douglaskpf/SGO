@@ -4,39 +4,37 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:b="http://bootsfaces.net/ui">
-
+      xmlns:p="http://primefaces.org/ui">
     <ui:composition template="/templates/template.xhtml">
-        <ui:define name="titulo">Manutenção de Cidades</ui:define>
+        <ui:define name="titulo">Manutenção de Insumos</ui:define>
         <ui:define name="conteudo">
             <h:form id="formListagem">
-                <h:panelGroup rendered="#{!controleCidade.editando}">
+                <h:panelGroup rendered="#{!controleInsumo.editando}">
                     <p:messages/>
                     <p:commandButton value="Novo" icon="ui-icon-plus"
-                                     actionListener="#{controleCidade.novo()}"
+                                     actionListener="#{controleInsumo.novo()}"
                                      update=":formEdicao :formListagem"/>                    
 
-                    <p:dataTable value="#{controleCidade.dao.listaObjetos}" var="obj"
+                    <p:dataTable value="#{controleInsumo.dao.listaObjetos}" var="obj"
                                  reflow="true" id="listagem" >         
                         <f:facet name="header">                            
                             <div class="ui-fluid" >
 
                                 <p:panelGrid columns="7" styleClass="ui-panelgrid-blank" layout="grid"
                                              columnClasses="col-md-1,col-md-2,col-md-1,col-md-3,col-md-1,col-md-2,col-md-2">
-                                    <p:outputLabel value="Ordem"/>
-                                    <p:selectOneMenu value="#{controleCidade.dao.ordem}">
+                                    <p:outputLabel value="Ordem:"/>
+                                    <p:selectOneMenu value="#{controleInsumo.dao.ordem}">
                                         <f:selectItem itemLabel="ID" itemValue="id"/>
                                         <f:selectItem itemLabel="Nome" itemValue="nome"/>
                                         <p:ajax update="listagem"/>
                                     </p:selectOneMenu>
-
-                                    <p:outputLabel value="Filtro"/>
-                                    <p:inputText value="#{controleCidade.dao.filtro}"/>
+                                    <p:outputLabel value="Filtro:"/>
+                                    <p:inputText value="#{controleInsumo.dao.filtro}"/>
                                     <p:commandButton value="" update="listagem" icon="ui-icon-search"/>
 
-                                    <p:outputLabel value="Máximo de objetos"/>
-                                    <p:inputText value="#{controleCidade.dao.maximoObjetos}" size="3">
+
+                                    <p:outputLabel value="Máximo de objetos:"/>
+                                    <p:inputText value="#{controleInsumo.dao.maximoObjetos}" size="3">
                                         <p:ajax event="keyup" update="listagem"/>
                                     </p:inputText>
                                 </p:panelGrid> 
@@ -44,14 +42,14 @@
                         </f:facet>
 
                         <f:facet name="footer"> 
-                            <p:outputLabel value="#{controleCidade.dao.mensagemNavegacao} &nbsp; &nbsp;"/>
-                            <p:commandButton action="#{controleCidade.dao.primeiro()}"
+                            <p:outputLabel value="#{controleInsumo.dao.mensagemNavegacao} &nbsp; &nbsp;"/>
+                            <p:commandButton action="#{controleInsumo.dao.primeiro()}"
                                              icon="ui-icon-seek-first" title="Primeiro" update="listagem"/>
-                            <p:commandButton action="#{controleCidade.dao.anterior()}"
+                            <p:commandButton action="#{controleInsumo.dao.anterior()}"
                                              icon="ui-icon-seek-prev" title="Anterior" update="listagem"/>
-                            <p:commandButton action="#{controleCidade.dao.proximo()}"
+                            <p:commandButton action="#{controleInsumo.dao.proximo()}"
                                              icon="ui-icon-seek-next" title="Próximo" update="listagem"/>
-                            <p:commandButton action="#{controleCidade.dao.ultimo()}"
+                            <p:commandButton action="#{controleInsumo.dao.ultimo()}"
                                              icon="ui-icon-seek-end" title="Ultimo" update="listagem"/>                                                        
                         </f:facet>
 
@@ -60,28 +58,40 @@
                         </p:column>
                         <p:column headerText="Nome">                        
                             <p:outputLabel value="#{obj.nome}"/>
-                        </p:column>                
-                        <p:column headerText="Estado">              
-                            <p:outputLabel value="#{obj.estado.nome}"/>
+                        </p:column>       
+
+                        <p:column headerText="Descrição">                        
+                            <p:outputLabel value="#{obj.descricao}"/>
+
+                        </p:column>  
+
+                        <p:column headerText="Preço">                        
+                            <p:outputLabel value="#{obj.preco}"/>
+                        </p:column>  
+
+                        <p:column headerText="Grupo">              
+                            <p:outputLabel value="#{obj.grupo.nome}"/>
                         </p:column>
 
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-pencil"
-                                                 actionListener="#{controleCidade.alterar(obj.id)}"
+                                                 actionListener="#{controleInsumo.alterar(obj.id)}"
                                                  process="@form"
                                                  update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
-                                                 actionListener="#{controleCidade.excluir(obj.id)}"
+                                                 actionListener="#{controleInsumo.excluir(obj.id)}"
                                                  process="@form" update=":formListagem"/>
+
                             </div>
                         </p:column>                    
                     </p:dataTable>
                 </h:panelGroup>         
             </h:form>
-            <ui:include src="/privado/cidade/formulario.xhtml"/>
+            <ui:include src="/privado/insumo/formulario.xhtml"/>
         </ui:define>
     </ui:composition>    
+
 </html>
 
 
