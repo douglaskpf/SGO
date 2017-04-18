@@ -66,19 +66,19 @@
 
                             <b:dropMenu icon="list" value="Cadastros" rendered="#{controleLogin.usuarioLogado != null and(controleLogin.usuarioLogado.administrador == false)}">
 
-                                 <b:navCommandLink icon="" value="Cidades"
+                                 <b:navCommandLink icon="globe" value="Cidades"
                                                   ajax="false"
                                                   action="#{controleCidade.listar()}"/>
                                  
-                                  <b:navCommandLink value="Usuários"
+                                  <b:navCommandLink icon="user" value="Usuários"
                                                   ajax="false"
                                                   action="#{controleUsuario.listarUser()}"/>
 
-                                <b:navCommandLink value="Insumos"
+                                <b:navCommandLink icon="usd" value="Insumos"
                                                   ajax="false"
                                                   action="#{controleInsumo.listarUser()}"/>
 
-                                <b:navCommandLink value="Orçamentos"
+                                <b:navCommandLink icon="tasks" value="Orçamentos"
                                                   ajax="false"
                                                   action="#{controleOrcamento.listar()}"/>
 
