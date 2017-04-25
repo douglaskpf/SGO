@@ -20,7 +20,7 @@ public class InsumoDAO<T> extends DAOGenerico<Insumo> implements Serializable {
 
         Insumo in = null;
         Double aux = null; //váriável para pegar o novo valor do serviço
-        
+
         //pegando todos os ServicoInsumo que possuem o Insumo
         List<ServicoInsumo> lista;
         lista = super.getEm().createQuery("from ServicoInsumo where insumo.id = '" + id + "'").getResultList();
@@ -31,7 +31,7 @@ public class InsumoDAO<T> extends DAOGenerico<Insumo> implements Serializable {
             si.setValorTotal(si.getValorUnitario() * si.getQuantidade());
             super.getEm().merge(si);
         }
-        
+
         //Atualizando o valorServico do Servico
         for (ServicoInsumo si : lista) {
             Servico s = si.getServico();
