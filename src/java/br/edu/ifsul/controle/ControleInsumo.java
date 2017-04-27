@@ -18,10 +18,10 @@ public class ControleInsumo implements Serializable {
     private InsumoDAO<Insumo> dao;
     private Insumo objeto;
     private Boolean editando;
-         
+
     @EJB
     private GrupoDAO<Grupo> daoGrupo;
-         
+
     public ControleInsumo() {
         editando = false;
     }
@@ -31,11 +31,11 @@ public class ControleInsumo implements Serializable {
         return "/privado/insumo/listar?faces-redirect=true";
     }
 
-     public String listarUser() {
+    public String listarUser() {
         editando = false;
         return "/privado/insumoUser/listar?faces-redirect=true";
     }
-    
+
     public void novo() {
         editando = true;
         objeto = new Insumo();
@@ -62,35 +62,29 @@ public class ControleInsumo implements Serializable {
         } catch (Exception e) {
             Util.mensagemErro("Erro ao remover objeto: " + Util.getMensagemErro(e));
         }
-    }  
-  
-   
+    }
+
     public void salvar() {
         try {
             if (objeto.getId() == null) {
                 dao.persist(objeto);
             } else {
                 dao.merge(objeto);
-                            
             }
+            //após atualizar o preço do "Insumo"//             
+            //percorrer a classe "ServicoInsumo" e atualizar o insumo e o valor total do "ServicoInsumo"//
+            //após atualizar a classe "servicoInsumo" mandar o "novo" total para o valor_servico em "Servico"//
             dao.atualizarInsumo(objeto);
             Util.mensagemInformacao("Sucesso ao persistir objeto");
             editando = false;
-                       
-            
+
         } catch (Exception e) {
             Util.mensagemErro("Erro ao persistir: " + Util.getMensagemErro(e));
         }
-                   
-        //após atualizar o preço do "Insumo"//             
-        //percorrer a classe "ServicoInsumo" e atualizar o insumo e o valor total do "ServicoInsumo"//
-        //após atualizar a classe "servicoInsumo" mandar o "novo" total para o valor_servico em "Servico"//
-            
-            
-   
-    }     
-        
-   public Insumo getObjeto() {
+
+    }
+
+    public Insumo getObjeto() {
         return objeto;
     }
 
@@ -121,5 +115,5 @@ public class ControleInsumo implements Serializable {
     public void setDaoGrupo(GrupoDAO<Grupo> daoGrupo) {
         this.daoGrupo = daoGrupo;
     }
-  
+
 }
