@@ -16,14 +16,14 @@ public class InsumoDAO<T> extends DAOGenerico<Insumo> implements Serializable {
         super.setOrdem("nome");// ordem padrão
     }
 
-    public void atualizarInsumo(Integer id) throws Exception {
-
-        Insumo in = null;
+    public void atualizarInsumo(Insumo in) throws Exception {
+ 
+    
         Double aux = null; //váriável para pegar o novo valor do serviço
 
         //pegando todos os ServicoInsumo que possuem o Insumo
         List<ServicoInsumo> lista;
-        lista = super.getEm().createQuery("from ServicoInsumo where insumo.id = '" + id + "'").getResultList();
+        lista = super.getEm().createQuery("from ServicoInsumo where insumo.id = '" + in.getId() + "'").getResultList();
 
         //Atualizando o valor total do ServicoInsumo
         for (ServicoInsumo si : lista) {
@@ -34,6 +34,7 @@ public class InsumoDAO<T> extends DAOGenerico<Insumo> implements Serializable {
 
         //Atualizando o valorServico do Servico
         for (ServicoInsumo si : lista) {
+            aux = 0.0;
             Servico s = si.getServico();
             s.setValorServico(0.0);
 

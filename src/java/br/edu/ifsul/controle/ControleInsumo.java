@@ -73,8 +73,11 @@ public class ControleInsumo implements Serializable {
                 dao.merge(objeto);
                             
             }
+            dao.atualizarInsumo(objeto);
             Util.mensagemInformacao("Sucesso ao persistir objeto");
             editando = false;
+                       
+            
         } catch (Exception e) {
             Util.mensagemErro("Erro ao persistir: " + Util.getMensagemErro(e));
         }
@@ -83,8 +86,7 @@ public class ControleInsumo implements Serializable {
         //percorrer a classe "ServicoInsumo" e atualizar o insumo e o valor total do "ServicoInsumo"//
         //após atualizar a classe "servicoInsumo" mandar o "novo" total para o valor_servico em "Servico"//
             
-        
-         //dao.atualizarInsumo();
+            
    
     }     
         
