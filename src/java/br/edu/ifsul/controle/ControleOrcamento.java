@@ -29,26 +29,26 @@ public class ControleOrcamento implements Serializable {
     private Orcamento objeto;
     private Boolean editando;
     private Boolean novoItem;
-
+    
     @EJB
     private UsuarioDAO<Usuario> daoUsuario;
-
+    
     @EJB
     private PessoaFisicaDAO<PessoaFisica> daoPessoaFisica;
-
+    
     @EJB
     private ServicoDAO<Servico> daoServico;
     private Boolean editandoOrcamentoItem;
     private OrcamentoItem item;
 
+    
     public ControleOrcamento() {
         editando = false;
         editandoOrcamentoItem = false;
 
     }
     
-    
-    
+        
      public void imprimeOrcamento(Integer id){
         try {
         objeto = dao.recuperar(id);

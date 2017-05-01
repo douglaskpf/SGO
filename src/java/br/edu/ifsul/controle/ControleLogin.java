@@ -1,7 +1,6 @@
 package br.edu.ifsul.controle;
 
 import br.edu.ifsul.dao.UsuarioDAO;
-//import br.edu.ifsul.modelo.AcessoUsuario;
 import br.edu.ifsul.modelo.Usuario;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
@@ -45,8 +44,6 @@ public class ControleLogin implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
-          //  AcessoUsuario acesso = new AcessoUsuario(request.getRemoteAddr());
-         //   usuarioLogado.adicionarAcesso(acesso);
             try {
                 dao.merge(usuarioLogado);
 

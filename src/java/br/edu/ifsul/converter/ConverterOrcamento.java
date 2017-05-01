@@ -24,7 +24,6 @@ public class ConverterOrcamento implements Serializable, Converter {
         }
         return em.find(Orcamento.class, Integer.parseInt(string));
     }
-
     // converte do objeto para a tela
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object o) {
