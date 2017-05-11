@@ -25,7 +25,6 @@
                                              columnClasses="col-md-1,col-md-2,col-md-1,col-md-3,col-md-1,col-md-2,col-md-2">
                                     <p:outputLabel value="Ordem"/>
                                     <p:selectOneMenu value="#{controleGrupo.dao.ordem}">
-                                        <f:selectItem itemLabel="ID" itemValue="id"/>
                                         <f:selectItem itemLabel="Nome" itemValue="nome"/>
                                         <p:ajax update="listagem"/>
                                     </p:selectOneMenu>
@@ -54,10 +53,7 @@
                                              icon="ui-icon-seek-end" title="Ultimo" update="listagem"/>                                                        
                         </f:facet>
 
-                        <p:column headerText="ID">
-                            <p:outputLabel value="#{obj.id}"/>
-                        </p:column>
-                        <p:column headerText="Nome">                        
+                            <p:column headerText="Nome">                        
                             <p:outputLabel value="#{obj.nome}"/>
                         </p:column>                
                        

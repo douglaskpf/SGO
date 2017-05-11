@@ -72,6 +72,8 @@
                     <p:outputLabel value="Cidade" for="selectCidade"/>
                     <p:selectOneMenu value="#{controleUsuario.objeto.cidade}"
                                      id="selectCidade">
+                         <f:selectItem itemLabel="Selecione um registro"
+                                              noSelectionOption="true"/>
                         <f:converter converterId="converterCidade"/>
                         <f:selectItems value="#{controleUsuario.daoCidade.listaTodos}" 
                                        var="c"

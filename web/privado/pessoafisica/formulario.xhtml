@@ -76,10 +76,17 @@
                     <p:selectOneMenu value="#{controlePessoaFisica.objeto.cidade}"
                                      id="selectCidade">
                         <f:converter converterId="converterCidade"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                              noSelectionOption="true"/>
                         <f:selectItems value="#{controlePessoaFisica.daoCidade.listaTodos}" 
                                        var="c"
                                        itemLabel="#{c.nome}"/>
                     </p:selectOneMenu>
+                    
+                    
+                    
+                    
+                    
 
                     <p:outputLabel value=""/>
                     <p:commandButton value="Salvar" icon="ui-icon-disk"

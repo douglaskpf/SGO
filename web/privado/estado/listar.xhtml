@@ -26,8 +26,8 @@
                                                  columnClasses="col-md-1,col-md-2,col-md-1,col-md-3,col-md-1,col-md-2,col-md-2">
                                         <p:outputLabel value="Ordem"/>
                                         <p:selectOneMenu value="#{controleEstado.dao.ordem}">
-                                            <f:selectItem itemLabel="ID" itemValue="id"/>
                                             <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                                             <f:selectItem itemLabel="UF" itemValue="uf"/>
                                             <p:ajax update="listagem"/>
                                         </p:selectOneMenu>
                                         <p:outputLabel value="Filtro"/>
@@ -54,10 +54,7 @@
                                 <p:commandButton action="#{controleEstado.dao.ultimo()}"
                                                  icon="ui-icon-seek-end" title="Ultimo" update="listagem"/>                                                        
                             </f:facet>
-
-                            <p:column headerText="ID">
-                                <p:outputLabel value="#{obj.id}"/>
-                            </p:column>
+                         
                             <p:column headerText="Nome">                        
                                 <p:outputLabel value="#{obj.nome}"/>
                             </p:column>                

@@ -21,8 +21,8 @@
                                              columnClasses="col-md-1,col-md-2,col-md-1,col-md-3,col-md-1,col-md-2,col-md-2">
                                     <p:outputLabel value="Ordem"/>
                                     <p:selectOneMenu value="#{controleInsumo.dao.ordem}">
-                                        <f:selectItem itemLabel="ID" itemValue="id"/>
                                         <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                                        <f:selectItem itemLabel="Grupo" itemValue="grupo.nome"/>
                                         <p:ajax update="listagem"/>
                                         
                                     </p:selectOneMenu>
