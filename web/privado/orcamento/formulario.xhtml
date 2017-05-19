@@ -50,7 +50,7 @@
                     <p:inputText value="#{controleOrcamento.objeto.valorTotal}"
                                  id="orcTxtValorTotal"
                                  size="12" maxlength="12"
-                                 placeholder="Obrigatório"/>
+                                 placeholder="Obrigatório" readonly="true"/>
                     
                       <p:outputLabel value="Usuário" for="selectUsuario"/>                    
                     <p:selectOneMenu id="selectUsuario"
@@ -105,11 +105,11 @@
 
                         <p:outputLabel for="txtValorUnitario" value="Valor Unitário"/>
                         <p:inputText id="txtValorUnitario" value="#{controleOrcamento.orcamentoItem.valorUnitario}"
-                                     size="12" maxlength="12"/>  
+                                     size="12" maxlength="12" readonly="true"/>  
 
                         <p:outputLabel for="txtValorTotal" value="Valor Total"/>
                         <p:inputText id="txtValorTotal" value="#{controleOrcamento.orcamentoItem.valorTotal}"
-                                     size="12" maxlength="12"/>   
+                                     size="12" maxlength="12" readonly="true"/>   
 
                         <p:outputLabel value=""/>
                         <p:commandButton value="Salvar Item" icon="ui-icon-disk"

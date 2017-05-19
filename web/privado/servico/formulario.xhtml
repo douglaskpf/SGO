@@ -32,10 +32,10 @@
                     <p:inputText id="txtValorServico"
                                  value="#{controleServico.objeto.valorServico}"
                                  size="12" maxlength="12"
-                                 placeholder="Obrigatório"/>
-                    
-                     <p:outputLabel value="Usuário" for="selectUsuario"/>
-                    <p:selectOneMenu id="selectUsuario"
+                                 placeholder="Obrigatório" readonly="true"/>
+                                                            
+               <p:outputLabel value="Usuário" for="selectUsuario"/>
+                  <p:selectOneMenu id="selectUsuario"
                                      value="#{controleServico.objeto.usuario}">
                                         <f:converter converterId="converterUsuario"/>
                                         <f:selectItem itemLabel="Selecione um registro"
@@ -83,11 +83,11 @@
 
                         <p:outputLabel for="txtValorUnitario" value="Valor Unitário"/>
                         <p:inputText id="txtValorUnitario" value="#{controleServico.servicoInsumo.valorUnitario}"
-                                     size="12" maxlength="12"/>  
+                                     size="12" maxlength="12" readonly="true"/>  
 
                         <p:outputLabel for="txtValorTotal" value="Valor Total"/>
                         <p:inputText id="txtValorTotal" value="#{controleServico.servicoInsumo.valorTotal}"
-                                     size="12" maxlength="12"/>   
+                                     size="12" maxlength="12" readonly="true"/>   
 
                         <p:outputLabel value=""/>
                         <p:commandButton value="Salvar Item" icon="ui-icon-disk"
