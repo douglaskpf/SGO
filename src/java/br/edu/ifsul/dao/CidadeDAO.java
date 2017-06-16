@@ -13,7 +13,6 @@ public class CidadeDAO<T> extends DAOGenerico<Cidade> implements Serializable {
         super.setClassePersistente(Cidade.class);
         super.setOrdem("nome");        
     }
-    
-    
+       
     
 }
